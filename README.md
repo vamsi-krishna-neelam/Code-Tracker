@@ -6,7 +6,7 @@
 
 CodeTrack Buddy is a full-stack web application designed to help developers **track coding problems**, manage solutions, and analyze progress. It provides an intuitive dashboard to monitor problem-solving streaks, submissions, and performance analytics.
 
-**Live Project URL**: [https://lovable.dev/projects/ce2a40f2-1c34-4b46-adc6-1e32b562ed8f](https://lovable.dev/projects/ce2a40f2-1c34-4b46-adc6-1e32b562ed8f)
+**Live Project URL**:(https://codetrackerrivision.netlify.app/auth)
 
 ## Features
 
