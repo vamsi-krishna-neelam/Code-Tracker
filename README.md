@@ -1,73 +1,42 @@
-# Welcome to your Lovable project
+# CodeTrack Buddy
 
-## Project info
+**Full-Stack Coding Problem Tracker & Analytics Platform**
 
-**URL**: https://lovable.dev/projects/ce2a40f2-1c34-4b46-adc6-1e32b562ed8f
+## Project Overview
 
-## How can I edit this code?
+CodeTrack Buddy is a full-stack web application designed to help developers **track coding problems**, manage solutions, and analyze progress. It provides an intuitive dashboard to monitor problem-solving streaks, submissions, and performance analytics.
 
-There are several ways of editing your application.
+**Live Project URL**: [https://lovable.dev/projects/ce2a40f2-1c34-4b46-adc6-1e32b562ed8f](https://lovable.dev/projects/ce2a40f2-1c34-4b46-adc6-1e32b562ed8f)
 
-**Use Lovable**
+## Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/ce2a40f2-1c34-4b46-adc6-1e32b562ed8f) and start prompting.
+- Add, edit, and manage coding problems from platforms like **LeetCode, HackerRank, CodeForces**.
+- Track progress with **streaks, points, and submission history**.
+- Analytics dashboard to visualize solved problems and difficulty trends.
+- Import/export coding problem data.
+- Authentication system with role-based access.
 
-Changes made via Lovable will be committed automatically to this repo.
+## Tech Stack
 
-**Use your preferred IDE**
+- **Frontend:** React, TypeScript, Tailwind CSS, shadcn-ui  
+- **Backend:** Node.js  
+- **Database:** PostgreSQL  
+- **Authentication & Realtime:** Supabase  
+- **Build Tool:** Vite  
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Getting Started
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Follow these steps to run the project locally:
 
-Follow these steps:
+```bash
+# 1. Clone the repository
+git clone https://github.com/vamsi-krishna-neelam/Code-Tracker.git
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# 2. Navigate into the project directory
+cd Code-Tracker
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# 3. Install dependencies
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# 4. Start the development server
 npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/ce2a40f2-1c34-4b46-adc6-1e32b562ed8f) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
