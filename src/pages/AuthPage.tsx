@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/contexts/AuthContext';
+import { isSupabaseConfigured } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { Code, TrendingUp, Target, Zap } from 'lucide-react';
 
@@ -16,6 +17,7 @@ export default function AuthPage() {
   const from = location.state?.from?.pathname || '/dashboard';
 
   const [isLoading, setIsLoading] = useState(false);
+  const [showConfigBanner, setShowConfigBanner] = useState(!isSupabaseConfigured);
 
   if (user) {
     return <Navigate to={from} replace />;
@@ -32,11 +34,23 @@ export default function AuthPage() {
     const { error } = await signIn(email, password);
 
     if (error) {
-      toast({
-        variant: 'destructive',
-        title: 'Sign in failed',
-        description: error.message,
-      });
+      // More actionable messages for common network/config problems
+      const configuredUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
+      if (error.message?.toLowerCase().includes('failed to fetch')) {
+        toast({
+          variant: 'destructive',
+          title: 'Sign in failed — network error',
+          description: configuredUrl
+            ? `Could not reach Supabase at ${configuredUrl}. Check your network or that the project URL is correct.`
+            : 'Supabase URL is not configured. Create a `.env.local` with VITE_SUPABASE_URL and VITE_SUPABASE_KEY.',
+        });
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Sign in failed',
+          description: error.message,
+        });
+      }
     }
 
     setIsLoading(false);
@@ -54,11 +68,31 @@ export default function AuthPage() {
     const { error } = await signUp(email, password, displayName);
 
     if (error) {
-      toast({
-        variant: 'destructive',
-        title: 'Sign up failed',
-        description: error.message,
-      });
+      const configuredUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
+
+      // Common network error message returned by fetch in browsers
+      if (error.message?.toLowerCase().includes('failed to fetch')) {
+        toast({
+          variant: 'destructive',
+          title: 'Sign up failed — cannot reach Supabase',
+          description: configuredUrl
+            ? `The app couldn't contact Supabase at ${configuredUrl}. Verify the project URL, your internet connection, and that the domain resolves.`
+            : 'Supabase is not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_KEY to `.env.local` in the project root.',
+        });
+      } else if (error.status === 0) {
+        // Some environments surface network failures with status 0
+        toast({
+          variant: 'destructive',
+          title: 'Sign up failed — network',
+          description: 'Network error when contacting the authentication server. Check your connection and proxy settings.',
+        });
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Sign up failed',
+          description: error.message,
+        });
+      }
     } else {
       toast({
         title: 'Check your email',
@@ -71,6 +105,19 @@ export default function AuthPage() {
 
   return (
     <div className="min-h-screen bg-gradient-hero flex items-center justify-center p-4">
+      {!isSupabaseConfigured && showConfigBanner && (
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-50 max-w-3xl w-full px-4">
+          <div className="rounded-md bg-red-600 text-white p-3 shadow-lg flex items-start justify-between gap-4">
+            <div>
+              <strong className="block">Supabase not configured</strong>
+              <div className="text-sm">Add <code>VITE_SUPABASE_URL</code> and <code>VITE_SUPABASE_KEY</code> to <code>.env.local</code> in the project root and restart the dev server.</div>
+            </div>
+            <div className="flex items-center">
+              <button className="text-white/80 underline" onClick={() => setShowConfigBanner(false)}>Dismiss</button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="max-w-4xl w-full grid lg:grid-cols-2 gap-8 items-center">
         {/* Hero Section */}
         <div className="space-y-6 text-center lg:text-left">
